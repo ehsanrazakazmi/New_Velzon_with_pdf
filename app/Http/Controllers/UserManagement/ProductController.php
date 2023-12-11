@@ -105,8 +105,25 @@ class ProductController extends Controller
 
     public function downloadpdf()
     {
+        $avatarUrl = public_path('/assets/images/shopify-logo.png');
+        $arrContextOptions=array(
+                        "ssl"=>array(
+                            "verify_peer"=>false,
+                            "verify_peer_name"=>false,
+                        ),
+                    );
+        $type = pathinfo($avatarUrl, PATHINFO_EXTENSION);
+        $avatarData = file_get_contents($avatarUrl, false, stream_context_create($arrContextOptions));
+        $avatarBase64Data = base64_encode($avatarData);
+        $base64 = 'data:image/' . $type . ';base64,' . $avatarBase64Data;
+
+        $nerdflow = public_path('images/nerdflow.jfif');
+
         $data = Product::all();
-        $pdf = Pdf::loadView('pdf.pdf', ['data' => $data]);
+        $totalprice = $data->sum('price');
+        $randomNumber = mt_rand(100000000, 999999999);
+
+        $pdf = Pdf::loadView('pdf.pdf', compact('data', 'base64', 'totalprice', 'randomNumber', 'nerdflow'));
         return $pdf->download('webappfix.pdf');
     }
 }

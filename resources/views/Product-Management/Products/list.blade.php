@@ -64,7 +64,7 @@
                                     <td class="text-center">{{ $product->detail }}</td>
                                     <td class="text-center">{{ $product->price }}</td>
                                     <td class="text-center">{{ $product->quantity }}</td>
-                                    <td class="text-center">{{ $product->date }}</td>
+                                    <td class="text-center">{{\Carbon\Carbon::parse($product->date)->format('d/m/Y') }}</td>
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
                                             <div class="edit">
@@ -177,20 +177,22 @@
         </div>
     </div>
     <!-- Modal for form store ends here .. -->
-    <div class="mt-3">
+    <div class="mt-3 float-left">
         @can('Product create')
             <button type="button" class="btn btn-success add-btn">
                 <a href="{{ route('show-product-excel') }}" style="color: white">Generate Excel</a>
             </button>
         @endcan
     </div>
-    <div class="mt-3">
+    
+    <div class="mt-3 float-right">
         @can('Product create')
             <button type="button" class="btn btn-success add-btn">
                 <a href="{{ route('generate-pdf') }}" style="color: white">Generate PDF</a>
             </button>
         @endcan
     </div>
+        
 
 @endsection
 
