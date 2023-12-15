@@ -1,10 +1,15 @@
 <?php
 
-use App\Http\Controllers\UserManagement\ProductController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Stripe\PlanController;
+use App\Http\Controllers\Stripe\CheckoutController;
 use App\Http\Controllers\UserManagement\RoleController;
 use App\Http\Controllers\UserManagement\UserController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserManagement\ProductController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,10 +75,18 @@ Route::controller(ProductController::class)->group(function(){
     });
 });
 
+Route::get('/checkout/{product}', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/{product}', [CheckoutController::class, 'charge'])->name('checkout.charge');
 
 // Route::get('export-user', [UserController::class, 'exportUser'])->name('export-user');
 // Route::post('import-user', [UserController::class, 'importUser'])->name('import-user');
 
+Route::controller(PlanController::class)->group(function(){
+    Route::get('/plans','index')->name('main-plans');
+    Route::get('/plans/{plan}', 'show')->name("plans.show");
+    Route::post('/subscription', 'subscription')->name("subscription.create");
+
+});
 });
 
 

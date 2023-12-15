@@ -52,7 +52,9 @@
                                 <th class="text-center">Details</th>
                                 <th class="text-center">Price</th>
                                 <th class="text-center">Quantity</th>
+                                <th class="text-center">Currency</th>
                                 <th class="text-center">Date</th>
+                                <th class="text-center">Pay Status</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -62,11 +64,22 @@
                                     <td class="text-center">{{ ++$i }}</td>
                                     <td class="text-center">{{ $product->name }}</td>
                                     <td class="text-center">{{ $product->detail }}</td>
-                                    <td class="text-center">{{ $product->price }}</td>
+                                    <td class="text-center">{{ $product->price }}
+                                    </td>
                                     <td class="text-center">{{ $product->quantity }}</td>
+                                    <td class="text-center">{{ $product->currency }}</td>
                                     <td class="text-center">{{\Carbon\Carbon::parse($product->date)->format('d/m/Y') }}</td>
+                                    <td class="text-center">
+                                        @if ($product->paid)
+                                            <span class="badge bg-success">Paid</span>
+                                        @else
+                                            <span class="badge bg-warning">Not Paid</span>
+                                        @endif
+                                    </td>
                                     <td>
+                                        
                                         <div class="d-flex gap-2 justify-content-center">
+                                            <a href="{{ route('checkout', $product->id) }}" class="btn btn-sm btn-primary"><i class="ri-bank-card-line"></i></a>
                                             <div class="edit">
                                                 @can('Product edit')
                                                     <button class="btn btn-sm btn-success edit-item-btn"><a href="{{ route('product.edit', encrypt($product->id)) }}" class="text-white"><i class="ri-edit-line"></i></a></button>
@@ -161,7 +174,10 @@
                             <br>
                             <input type="number" id="quantity" name="quantity" min="1" max="1000">
                         </div>
-                        
+                        <div class="mb-3">
+                            <label for="currency" class="form-label">Currency</label>
+                            <input type="text" class="form-control rounded-pill" id="currency" name="currency" placeholder="USD|GBP|PKR|AED|" required>
+                        </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Date</label>
                             <input type="date" class="form-control rounded-pill" id="date" name="date" placeholder="Select Date" value="{{ old('date') }}">

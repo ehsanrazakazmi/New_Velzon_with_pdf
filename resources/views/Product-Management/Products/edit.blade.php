@@ -54,6 +54,10 @@
                                 <input type="number" id="quantity" name="quantity" min="1" max="1000" value="{{$product->quantity}}">
                             </div>
                             <div class="mb-3">
+                                <label for="currency" class="form-label">Currency</label>
+                                <input type="text" class="form-control rounded-pill" id="currency" name="currency" placeholder="USD|GBP|PKR|AED|" value="{{ $product->currency}}" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="date" class="form-label">Date</label>
                                 <input type="date" class="form-control rounded-pill" id="date" name="date" placeholder="Select Date" value="{{ $product->date }}">
                             </div>  

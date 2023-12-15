@@ -37,6 +37,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'date' => 'nullable|date',
             'quantity' => 'nullable|integer',
+            'currency' => 'required',
         ]);
         // prints the follwing statement if validation fails
         if ($validator->fails())
@@ -67,6 +68,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'date' => 'nullable|date',
             'quantity' => 'nullable|integer',
+            'currency' => 'required',
 
         ]);
         Product::find($id)->update(
@@ -76,6 +78,7 @@ class ProductController extends Controller
                 'price'=>$request->price,
                 'date'=>$request->date,
                 'quantity'=>$request->quantity,
+                'currency'=>$request->currency,
             ]);
         return redirect()->route('product.index')
                         ->with('success','Product updated successfully');

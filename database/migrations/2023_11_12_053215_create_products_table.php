@@ -20,6 +20,8 @@ return new class extends Migration
             $table->decimal('price');
             $table->date('date')->nullable();
             $table->integer('quantity')->nullable();
+            $table->string('currency')->nullable();
+            $table->boolean('paid')->default(false); // This line adds the paid column
             $table->timestamps();
         });
     }
