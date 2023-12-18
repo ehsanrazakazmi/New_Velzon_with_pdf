@@ -11,7 +11,7 @@ class CheckoutController extends Controller
 {
     public function checkout(Product $product)
     {
-        return view('checkout', compact('product'));
+        return view('stripe/checkout', compact('product'));
     }
 
     public function charge(Request $request, Product $product)

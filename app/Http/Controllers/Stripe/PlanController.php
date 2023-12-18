@@ -17,7 +17,7 @@ class PlanController extends Controller
     {
         $plans = Plan::get();
    
-        return view("plans", compact("plans"));
+        return view("stripe/plans", compact("plans"));
     }  
    
     /**
@@ -29,7 +29,7 @@ class PlanController extends Controller
     {
         $intent = auth()->user()->createSetupIntent();
    
-        return view("subscription", compact("plan", "intent"));
+        return view("stripe/subscription", compact("plan", "intent"));
     }
     /**
      * Write code on Method
